@@ -5,16 +5,24 @@ import pymongo
 
 import yaml
 import jwt
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 search_api = Blueprint('search_api', __name__)
 bcrypt = Bcrypt()
-f = open("flask_yaml/mongo-credential.yaml")
-data = f.read()
-yaml_reader = yaml.safe_load(data)
+# f = open("flask_yaml/mongo-credential.yaml")
+# data = f.read()
+# yaml_reader = yaml.safe_load(data)
 
-client = pymongo.MongoClient(yaml_reader['connection_url'])
-db = client[yaml_reader['db']]
-db_collection_User = db[yaml_reader['collection_User']]
+# client = pymongo.MongoClient(yaml_reader['connection_url'])
+# db = client[yaml_reader['db']]
+# db_collection_User = db[yaml_reader['collection_User']]
+
+client = pymongo.MongoClient(os.getenv['connection_url'])
+db = client[os.getenv['db']]
+db_collection_User = db[os.getenv['collection_User']]
 db_collection_product=db['Product']
 
 def getItemList():

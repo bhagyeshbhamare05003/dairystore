@@ -40,13 +40,13 @@ app.register_blueprint(register_api)
 app.register_blueprint(search_api)
 
 # client = pymongo.MongoClient(yaml_reader['connection_url'])
-client = pymongo.MongoClient(os.getenv['MONGO_CONNECTION_URL'])
+client = pymongo.MongoClient(os.getenv['connection_url'])
 db = client['dairy_user_info']
 db_collection_User = db['User']
 db_collection_OAuthUser = db['OAUTH_USER_DETAILS']
 db_collection_product = db['Product']
 # db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
-db_collection_cart_history = db[os.getenv['MONGO_COLLECTIOIN_CART_HISTORY']]
+db_collection_cart_history = db[os.getenv['collection_Cart_History']]
 db_collection_address= db['Address']
 db_collection_payment= db['PaymentInfo']
 db_collection_order_history= db['Order_History']
@@ -91,8 +91,8 @@ mail_settings = {
     "MAIL_USE_SSL": True,
     # "MAIL_USERNAME": yaml_reader['email_address'],
     # "MAIL_PASSWORD": yaml_reader['email_password'],
-    "MAIL_USERNAME": os.getenv['EMAIL_ADDRESS'],
-    "MAIL_PASSWORD": os.getenv['EMAIL_PASSWORD']
+    "MAIL_USERNAME": os.getenv['email_address'],
+    "MAIL_PASSWORD": os.getenv['email_password']
 }
 app.config.update(mail_settings)
 mail = Mail(app)

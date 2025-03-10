@@ -7,18 +7,26 @@ import pymongo
 
 import yaml
 import jwt
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 product_api = Blueprint('product_api', __name__)
 
-f = open("flask_yaml/mongo-credential.yaml")
-data = f.read()
-yaml_reader = yaml.safe_load(data)
+# f = open("flask_yaml/mongo-credential.yaml")
+# data = f.read()
+# yaml_reader = yaml.safe_load(data)
 
-client = pymongo.MongoClient(yaml_reader['connection_url'])
-db = client[yaml_reader['db']]
-db_collection_User = db[yaml_reader['collection_User']]
+# client = pymongo.MongoClient(yaml_reader['connection_url'])
+# db = client[yaml_reader['db']]
+# db_collection_User = db[yaml_reader['collection_User']]
+# db_collection_product=db['Product']
+
+client = pymongo.MongoClient(os.getenv['connection_url'])
+db = client[os.getenv['db']]
+db_collection_User = db[os.getenv['collection_User']]
 db_collection_product=db['Product']
-
 
 @product_api.route('/products.html', methods=['GET'])
 def product():

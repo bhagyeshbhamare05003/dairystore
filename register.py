@@ -9,17 +9,28 @@ import re
 import datetime
 
 from redis import Redis
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 register_api = Blueprint('register_api', __name__)
 bcrypt = Bcrypt()
-f = open("flask_yaml/mongo-credential.yaml")
-data = f.read()
-yaml_reader = yaml.safe_load(data)
-client = pymongo.MongoClient(yaml_reader['connection_url'])
-db = client[yaml_reader['db']]
-db_collection_User = db[yaml_reader['collection_User']]
-db_collection_Order_History = db[yaml_reader['collection_Order_History']]
-db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
+
+# f = open("flask_yaml/mongo-credential.yaml")
+# data = f.read()
+# yaml_reader = yaml.safe_load(data)
+# client = pymongo.MongoClient(yaml_reader['connection_url'])
+# db = client[yaml_reader['db']]
+# db_collection_User = db[yaml_reader['collection_User']]
+# db_collection_Order_History = db[yaml_reader['collection_Order_History']]
+# db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
+
+client = pymongo.MongoClient(os.getenv['connection_url'])
+db = client[os.getenv['db']]
+db_collection_User = db[os.getenv['collection_User']]
+db_collection_Order_History = db[os.getenv['collection_Order_History']]
+db_collection_cart_history = db[os.getenv['collection_Cart_History']]
 
 error_ = ""
 
