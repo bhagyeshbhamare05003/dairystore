@@ -26,11 +26,11 @@ bcrypt = Bcrypt()
 # db_collection_Order_History = db[yaml_reader['collection_Order_History']]
 # db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
 
-client = pymongo.MongoClient(os.getenv['connection_url'])
-db = client[os.getenv['db']]
-db_collection_User = db[os.getenv['collection_User']]
-db_collection_Order_History = db[os.getenv['collection_Order_History']]
-db_collection_cart_history = db[os.getenv['collection_Cart_History']]
+client = pymongo.MongoClient(os.getenv('connection_url'))
+db = client[os.getenv('db')]
+db_collection_User = db[os.getenv('collection_User')]
+db_collection_Order_History = db[os.getenv('collection_Order_History')]
+db_collection_cart_history = db[os.getenv('collection_Cart_History')]
 
 error_ = ""
 

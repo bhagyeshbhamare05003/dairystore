@@ -23,9 +23,9 @@ product_api = Blueprint('product_api', __name__)
 # db_collection_User = db[yaml_reader['collection_User']]
 # db_collection_product=db['Product']
 
-client = pymongo.MongoClient(os.getenv['connection_url'])
-db = client[os.getenv['db']]
-db_collection_User = db[os.getenv['collection_User']]
+client = pymongo.MongoClient(os.getenv('connection_url'))
+db = client[os.getenv('db')]
+db_collection_User = db[os.getenv('collection_User')]
 db_collection_product=db['Product']
 
 @product_api.route('/products.html', methods=['GET'])

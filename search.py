@@ -20,9 +20,9 @@ bcrypt = Bcrypt()
 # db = client[yaml_reader['db']]
 # db_collection_User = db[yaml_reader['collection_User']]
 
-client = pymongo.MongoClient(os.getenv['connection_url'])
-db = client[os.getenv['db']]
-db_collection_User = db[os.getenv['collection_User']]
+client = pymongo.MongoClient(os.getenv('connection_url'))
+db = client[os.getenv('db')]
+db_collection_User = db[os.getenv('collection_User')]
 db_collection_product=db['Product']
 
 def getItemList():
