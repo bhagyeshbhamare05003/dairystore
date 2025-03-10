@@ -7,13 +7,21 @@ import jwt
 
 login_api = Blueprint('login_api', __name__)
 bcrypt = Bcrypt()
-f = open("flask_yaml/mongo-credential.yaml")
-data = f.read()
-yaml_reader = yaml.safe_load(data)
 
-client = pymongo.MongoClient(yaml_reader['connection_url'])
-db = client[yaml_reader['db']]
-db_collection_User = db[yaml_reader['collection_User']]
+from dotenv import load_dotenv
+
+load_dotenv()
+# f = open("flask_yaml/mongo-credential.yaml")
+# data = f.read()
+# yaml_reader = yaml.safe_load(data)
+
+# client = pymongo.MongoClient(yaml_reader['connection_url'])
+# db = client[yaml_reader['db']]
+# db_collection_User = db[yaml_reader['collection_User']]
+
+client = pymongo.MongoClient(os.getenv['connection_url'])
+db = client[os.getenv['db']]
+db_collection_User = db[os.getenv['collection_User']]
 
 
 firstname = ""
