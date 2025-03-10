@@ -23,9 +23,13 @@ from bson import ObjectId, json_util
 from flask_bcrypt import Bcrypt
 from search import search_api
 
-f = open("flask_yaml/mongo-credential.yaml")
-data = f.read()
-yaml_reader = yaml.safe_load(data)
+# f = open("flask_yaml/mongo-credential.yaml")
+# data = f.read()
+# yaml_reader = yaml.safe_load(data)
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -35,12 +39,14 @@ app.register_blueprint(login_api)
 app.register_blueprint(register_api)
 app.register_blueprint(search_api)
 
-client = pymongo.MongoClient(yaml_reader['connection_url'])
+# client = pymongo.MongoClient(yaml_reader['connection_url'])
+client = pymongo.MongoClient(os.getenv['MONGO_CONNECTION_URL'])
 db = client['dairy_user_info']
 db_collection_User = db['User']
 db_collection_OAuthUser = db['OAUTH_USER_DETAILS']
 db_collection_product = db['Product']
-db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
+# db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
+db_collection_cart_history = db[os.getenv['MONGO_COLLECTIOIN_CART_HISTORY']]
 db_collection_address= db['Address']
 db_collection_payment= db['PaymentInfo']
 db_collection_order_history= db['Order_History']
@@ -83,8 +89,10 @@ mail_settings = {
     "MAIL_PORT": 465,
     "MAIL_USE_TLS": False,
     "MAIL_USE_SSL": True,
-    "MAIL_USERNAME": yaml_reader['email_address'],
-    "MAIL_PASSWORD": yaml_reader['email_password']
+    # "MAIL_USERNAME": yaml_reader['email_address'],
+    # "MAIL_PASSWORD": yaml_reader['email_password'],
+    "MAIL_USERNAME": os.getenv['EMAIL_ADDRESS'],
+    "MAIL_PASSWORD": os.getenv['EMAIL_PASSWORD']
 }
 app.config.update(mail_settings)
 mail = Mail(app)
@@ -653,9 +661,11 @@ def forget_password():
 def service():
     return render_template("service.html")
 
-if __name__ == '__main__':
-    app.run(
-        host='127.0.0.1',
-        port=5000,
-        debug=True
-    )
+# if __name__ == '__main__':
+#     app.run(
+#         host='127.0.0.1',
+#         port=5000,
+#         debug=True
+#     )
+if __name__ == "__main__":
+    app.run(debug=True)
